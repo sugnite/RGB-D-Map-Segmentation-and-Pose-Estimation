@@ -1,11 +1,11 @@
 # RGB-D-Map-Segmentation-and-Pose-Estimation
 Map point cloud segmentation using RGB-D sensor. 
-The mapping is using RTAB and do the segmentation at the same time.
-This project work using yolov5 as an object detetor, using filtering to update extracted point cloud in the map frame and estimate a position to the object.
+The mapping is using [`rtabmap`](https://github.com/introlab/rtabmap_ros) and do the segmentation at the same time.
+This project work using [`yolov5`](https://github.com/ultralytics/yolov5) as an object detetor, using filtering to update extracted point cloud in the map frame and estimate a position to the object.
 The code was designed to work out of the box with the Spot Robot body camera.
 
 - Tested under Ubuntu 18.04 and ROS Melodic
-- Require Python2.7 and Python3.8
+- Require [![python-second-image]][python3-url] and [![python-image]][python3-url]
 
 ![output](./docs/output_package.png)
 
@@ -19,16 +19,25 @@ clone the repository to your ros workspace
 cd ~/ros_ws/src/
 git clone https://github.com/sugnite/RGB-D-Map-Segmentation-and-Pose-Estimation
 ```
+Install the requirements for [![python-image]][python3-url]
 
+```shell script
+pip3 install -U -r requirements3.txt
+```
+Install requirements for [![python-second-image]][python3-url]
+
+```shell script
+pip install -U -r requirements.txt
+```
 ### 1.2. Setup Yolov5
-Download the yolov5 for ROS package in your workspace directory.
-Follow the [`instructions`](https://github.com/ch-sa/labelCloud) to setup the package.
+Download the [`yolov5`](https://github.com/sugnite/yolov5_ros) for ROS package in your workspace directory.
+Follow the [instructions](https://github.com/sugnite/yolov5_ros) to setup the package.
 
 ```shell script
 git clone https://github.com/sugnite/yolov5_ros
 ```
 
-Download the weight of the project (require gdown).
+Download the weight of the project (require [`gdown`](https://github.com/wkentaro/gdown)).
 
 ```shell script
 pip install down
@@ -44,7 +53,7 @@ sudo apt install ros-melodic-rtabmap-ros
 ```
 ### 1.4. Install Spot Package
 
-Install Spot packages from clearpath
+Install Spot packages from [clearpath robotics](https://github.com/clearpathrobotics/spot_ros)
 
 ```shell script
 pip3 install bosdyn-client bosdyn-mission bosdyn-api bosdyn-core
@@ -92,15 +101,17 @@ The next launch file will start the object detection network and the 3D filterin
 
 ![detection](./docs/Stairs_exp1.png)
 
-Third Terminal
+Third Terminal | [![python-image]][python3-url]
 ```shell script
 roslaunch rgbd_map_segmentation_and_pose_estimation semantic_classifier.launch
 ```
 
 The last file will start the point cloud extraction and 3D pose estimation of the segmented objects
 
-Fourth Terminal
+Fourth Terminal | [![python-second-image]][python3-url]
 ```shell script
 roslaunch rgbd_map_segmentation_and_pose_estimation second_node_semantic_classifier.launch
 ```
-
+[python-image]: https://img.shields.io/badge/Python-3.8-blue.svg
+[python3-url]: https://www.python.org/
+[python-second-image]: https://img.shields.io/badge/Python-2.7-green.svg
