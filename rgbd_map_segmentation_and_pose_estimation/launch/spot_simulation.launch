@@ -1,0 +1,9 @@
+<launch>
+    <!-- Rosbag Parameters -->
+    <arg name="bag_name"               default="spot_stairsRoom_02.bag"/>
+    <param name="/use_sim_time" value="true" />
+    <!-- Start the rosbag -->
+    <node pkg="rosbag" type="play" name="player" output="screen" args="--clock (find rgbd_map_segmentation_and_pose_estimation)/home/gus/catkin_ws/bags/$(arg bag_name)"/>
+    <!-- Odom reset node params -->
+    <arg name="odom_topic"               default="/spot/odometry"/>
+</launch>

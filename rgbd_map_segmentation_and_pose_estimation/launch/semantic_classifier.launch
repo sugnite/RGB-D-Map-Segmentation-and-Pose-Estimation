@@ -1,0 +1,20 @@
+<launch>
+    <!-- Start rtabmap -->
+    <include file="$(find rgbd_map_segmentation_and_pose_estimation)/launch/rtab_spot.launch"/>
+
+    <!-- Start Yolov5 object detection -->
+    <include file="$(find rgbd_map_segmentation_and_pose_estimation)/launch/spot_yolov5.launch"/>
+
+    <!-- Args for the extraction -->
+    <arg name="pcd_namespaces"           default="/point_extract/objects/"/>
+    <arg name="output_endName"           default="/filtered"/>
+    <arg name="map_frame_id"             default="/map"/>
+    
+
+    <!-- Start pcd filtering -->
+    <node pkg="rgbd_map_segmentation_and_pose_estimation" name="processing_pcd" type="processing_pcd.py" output="screen"> 
+        <param name="pcd_namespaces"                  value="$(arg pcd_namespaces)"/>
+        <param name="output_endName"                  value="$(arg output_endName)"/>
+        <param name="map_frame_id"                    value="$(arg map_frame_id)"/>
+    </node>
+</launch>

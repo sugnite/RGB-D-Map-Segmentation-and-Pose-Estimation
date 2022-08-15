@@ -1,0 +1,51 @@
+<launch>
+    <!-- Args for the topic input-->
+    <arg name="camera_depth_topic"             default="/spot/depth/frontright/depth_in_visual"/>
+    <arg name="camera_rgb_info_topic"          default="/spot/camera/frontright/camera_info"/>
+
+    <!-- Args for the frame input and ouput -->
+    <arg name="camera_frame_id"                default="/frontright_fisheye"/>
+    <arg name="map_frame_id"                   default="/map"/>
+
+    <!-- Args from object detection output-->
+    <arg name="yolo_image_out_topic"           default="/yolov5/image_out"/>
+    <arg name="yolo_boxes_topic"               default="/yolov5/detections"/>
+    <arg name="objects_classes"                default="Door;Stairs;Door handle"/>
+    <arg name="rotation_degrees"               default="90"/>
+    <arg name="probability_threshold"          default="0.6"/>
+
+    <!-- Args for the extraction output-->
+    <arg name="publisher_namespaces"           default="/point_extract/objects/"/>
+    <arg name="log_detection"                  default="False"/>
+
+
+    <!-- Argument for the TF estimator-->
+    <arg name="publishers_endName"              default="/filtered"/>
+    <arg name="min_clust_points"                default="60"/>
+
+    <!-- Start pcd extraction -->
+    <node pkg="rgbd_map_segmentation_and_pose_estimation" name="point_cloud_extract" type="point_cloud_extract.py" output="screen"> 
+        <param name="camera_depth_topic"                value="$(arg camera_depth_topic)"/>
+        <param name="camera_rgb_info_topic"             value="$(arg camera_rgb_info_topic)"/>
+
+        <param name="camera_frame_id"                   value="$(arg camera_frame_id)"/>
+        <param name="map_frame_id"                      value="$(arg map_frame_id)"/>
+
+        <param name="yolo_image_out_topic"              value="$(arg yolo_image_out_topic)"/>
+        <param name="yolo_boxes_topic"                  value="$(arg yolo_boxes_topic)"/>
+        <param name="objects_classes"                   value="$(arg objects_classes)"/>
+        <param name="rotation_degrees"                  value="$(arg rotation_degrees)"/>
+        <param name="probability_threshold"             value="$(arg probability_threshold)"/>
+
+        <param name="publisher_namespaces"              value="$(arg publisher_namespaces)"/>
+        <param name="log_detection"                     value="$(arg log_detection)"/>
+    </node>
+
+    <!-- Start the object TF estimation node -->
+        <node pkg="rgbd_map_segmentation_and_pose_estimation" name="object_tf" type="object_tf.py" output="screen"> 
+        <param name="publishers_endName"                value="$(arg publishers_endName)"/>
+        <param name="min_clust_points"                  value="$(arg min_clust_points)"/>
+        <param name="map_frame_id"                      value="$(arg map_frame_id)"/>
+    </node>
+
+</launch>
