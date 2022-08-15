@@ -21,7 +21,7 @@
   <arg name="rtabmapviz_cfg"          default="~/.ros/rtabmap_gui.ini" />
   
 
-  <arg name="rviz_cfg"                default="$(find semantic_mapping_ros)/rviz/rtab_spot_cf.rviz" />
+  <arg name="rviz_cfg"                default="$(find rgbd_map_segmentation_and_pose_estimation)/rviz/rtab_spot_cf.rviz" />
   
   <arg name="frame_id"                default="body"/>   <!-- Fixed frame id, you may set "base_link" or "base_footprint" if they are published -->
   <arg name="database_path"           default="~/.ros/rtabmap.db"/>
