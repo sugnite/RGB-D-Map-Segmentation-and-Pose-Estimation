@@ -7,7 +7,7 @@ The code was designed to work out of the box with the Spot Robot body camera.
 - Tested under Ubuntu 18.04 and ROS Melodic
 - Require Python2.7 and Python3.8
 
-![output](./docs/output_package.png | width=100)
+![output](./docs/output_package.png)
 
 ## Getting Started
 
@@ -68,7 +68,7 @@ cd ~/ros_ws/src/RGB-D-Map-Segmentation-and-Pose-Estimation/rgbd_map_segmentation
 gdown https://drive.google.com/uc?id=1tAV1GYfxH25EosJLpR4FSFkXNUuFxjuB
 ```
 
-![mapping](./docs/mapping.gif | width=100)
+![mapping](./docs/mapping.gif)
 
 ## Run the program
 
@@ -90,7 +90,7 @@ rosbag play --clock spot_demo_bag.bag
 ```
 The next launch file will start the object detection network and the 3D filtering of the extracted point cloud
 
-![detection](./docs/Stairs_exp1.png | width=100)
+![detection](./docs/Stairs_exp1.png)
 
 Third Terminal
 ```shell script
