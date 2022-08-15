@@ -49,14 +49,10 @@ class object_tf():
         self.br = tf.TransformBroadcaster()
         # Points CLoud Message
         self.pcd_topic_namespace = rospy.get_param("~publishers_endName") # get as an argument
-        #   define the topic to publish the map in (Using occupancy grid message)
-        # self.map_stitched = rospy.Publisher(self.map_stitched_name, OccupancyGrid, queue_size=1)
-        #   Subscribe to Odometry and LaserScan to fill the map
-        # not sure if any better or different that master=None
-        # master = rosgraph.Master('/rostopic')
-        # pubs, subs = rostopic.get_topic_list(master=master)
+        
+        # get the topic namespaces
+        # init the list
         topic_list = []
-
         rospy.loginfo('Waiting for filtered point cloud to be published...')
         # get the topic list while not published
         while topic_list == []:
@@ -99,13 +95,8 @@ class object_tf():
         # subscribe to the listed topics
         for IdX, pcd_names_topic in enumerate(topic_list):
             self.point_clouds_subs.append(rospy.Subscriber(pcd_names_topic, PointCloud, self.callback_point_clouds, (IdX)))
-        # Go to the main loop
-        # self.allObjects = rospy.Publisher(self.pcd_totimepic_namespace + 'all_objects', PointCloud, queue_size=1)
         # # Go to the main loop
         self.main_loop()
-
-   
-
 
     def callback_point_clouds(self, point_clouds_msg, index):
         pcd_data = point_clouds_msg.points
