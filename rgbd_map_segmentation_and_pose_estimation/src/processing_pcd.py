@@ -6,16 +6,11 @@ import rospy
 from math import *
 #import Cmd_Velocity Message
 from geometry_msgs.msg import Point32
-#import array message for Occupancy grid
 # import the camera data message
-from sensor_msgs.msg import Image, CameraInfo, PointCloud, ChannelFloat32
+from sensor_msgs.msg import PointCloud, ChannelFloat32
 
 #numpy import
 import numpy as np
-#import OpenCV
-import cv2
-# import the transfrom moduel
-# from py_listner_tf import py3_listner
 import os
 
 import rosgraph
@@ -162,10 +157,8 @@ class Points_processing():
             self.total_points[index] = len(point_clouds)
 
     # create a function that integrate point list and pointcloud into as new message
-
-        self.camera_infos = CameraInfo()
-        self.depth_shape = (0, 0)
-        self.rotation_degrees = 90        pcd_to_check = np.asarray(pcd_to_add.points)  
+    def create_pcd_message(self, pcd_to_add, existing_points_msg, index=0):
+        pcd_to_check = np.asarray(pcd_to_add.points)  
         # create a new point cloud
         points_c_msg = PointCloud()
         points_c_msg.points = existing_points_msg.points
@@ -254,3 +247,4 @@ if __name__ == '__main__':
         pass
 
 
+point_clouds
