@@ -1,7 +1,7 @@
 # RGB-D-Map-Segmentation-and-Pose-Estimation
 Map point cloud segmentation using RGB-D sensor. 
 The mapping is using [`rtabmap`](https://github.com/introlab/rtabmap_ros) and do the segmentation at the same time.
-This project work using [`yolov5`](https://github.com/ultralytics/yolov5) as an object detetor, using filtering to update extracted point cloud in the map frame and estimate a position to the object.
+This project work using [`yolov5`](https://github.com/ultralytics/yolov5) as an object detector, using filtering to update extracted point cloud in the map frame and estimate the position from the object to the map.
 The code was designed to work out of the box with the Spot Robot body camera.
 
 - Tested under Ubuntu 18.04 and ROS Melodic
@@ -20,14 +20,16 @@ cd ~/ros_ws/src/
 git clone https://github.com/sugnite/RGB-D-Map-Segmentation-and-Pose-Estimation
 ```
 Install the requirements for [![python-image]][python3-url]
+It's recommanded to create a virtual environement for both python versions
+(rgbd_sem_py3 and rgbd_sem_py2 in this case)
 
 ```shell script
-pip3 install -U -r requirements3.txt
+(rgbd_sem_py3)$ pip3 install -U -r requirements3.txt
 ```
 Install requirements for [![python-second-image]][python3-url]
 
 ```shell script
-pip install -U -r requirements.txt
+(rgbd_sem_py2)$ pip install -U -r requirements.txt
 ```
 ### 1.2. Setup Yolov5
 Download the [`yolov5`](https://github.com/sugnite/yolov5_ros) for ROS package in your workspace directory.
@@ -44,7 +46,7 @@ pip install down
 cd ~/ros_ws/src/yolov5_ros/src/yolov5
 gdown https://drive.google.com/uc?id=1YIUekSGq6SvQ7KzKNgbcB-D4Yt8-SDLP
 ```
-### 1.3. Setup RAB-Map
+### 1.3. Setup RTAB-Map
 
 Install rtab-map package for the mapping process
 
@@ -56,7 +58,7 @@ sudo apt install ros-melodic-rtabmap-ros
 Install Spot packages from [clearpath robotics](https://github.com/clearpathrobotics/spot_ros)
 
 ```shell script
-pip3 install bosdyn-client bosdyn-mission bosdyn-api bosdyn-core
+(rgbd_sem_py3)$ pip3 install bosdyn-client bosdyn-mission bosdyn-api bosdyn-core
 git clone https://github.com/clearpathrobotics/spot_ros
 ```
 ### 1.5. Make your workspace
@@ -103,14 +105,14 @@ The next launch file will start the object detection network and the 3D filterin
 
 Third Terminal | [![python-image]][python3-url]
 ```shell script
-roslaunch rgbd_map_segmentation_and_pose_estimation semantic_classifier.launch
+(rgbd_sem_py3)$ roslaunch rgbd_map_segmentation_and_pose_estimation semantic_classifier.launch
 ```
 
 The last file will start the point cloud extraction and 3D pose estimation of the segmented objects
 
 Fourth Terminal | [![python-second-image]][python3-url]
 ```shell script
-roslaunch rgbd_map_segmentation_and_pose_estimation second_node_semantic_classifier.launch
+(rgbd_sem_py2)$ roslaunch rgbd_map_segmentation_and_pose_estimation second_node_semantic_classifier.launch
 ```
 [python-image]: https://img.shields.io/badge/Python-3.8-blue.svg
 [python3-url]: https://www.python.org/
